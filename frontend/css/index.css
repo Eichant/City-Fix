@@ -1,0 +1,703 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #f0f2f5;
+    color: #1a1a1a;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.cf-nav {
+    background: #fff;
+    padding: 0 24px;
+    display: flex;
+    align-items: center;
+    height: 56px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.cf-nav-brand {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1a73e8;
+    text-decoration: none;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.cf-nav-links {
+    display: flex;
+    gap: 4px;
+}
+
+.cf-nav-link {
+    padding: 6px 16px;
+    text-decoration: none;
+    color: #5f6368;
+    border-radius: 16px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.2s;
+    cursor: pointer;
+}
+
+.cf-nav-link:hover,
+.cf-nav-link.active {
+    background: #e8f0fe;
+    color: #1a73e8;
+}
+
+.cf-page {
+    display: none;
+    flex: 1;
+    animation: fadeIn 0.25s ease;
+}
+
+.cf-page.active {
+    display: flex;
+    flex-direction: column;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes photoAppear {
+    from { opacity: 0; transform: scale(0.9); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes markerAppear {
+    from { opacity: 0; transform: translateY(-12px) scale(0.8); }
+    to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+.cf-stats-panel {
+    display: flex;
+    gap: 12px;
+    padding: 20px 24px;
+    flex-shrink: 0;
+}
+
+.cf-stat-card {
+    flex: 1;
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.cf-stat-value {
+    font-size: 30px;
+    font-weight: 700;
+    color: #1a73e8;
+    display: block;
+}
+
+.cf-stat-label {
+    font-size: 11px;
+    color: #5f6368;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+.cf-main-content {
+    flex: 1;
+    display: flex;
+    gap: 12px;
+    padding: 0 24px 20px;
+    min-height: 400px;
+}
+
+#cfMap {
+    flex: 1;
+    min-height: 400px;
+    border-radius: 10px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    z-index: 1;
+}
+
+.cf-sidebar {
+    width: 300px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    overflow-y: auto;
+}
+
+.cf-sidebar h3 {
+    font-size: 15px;
+    margin-bottom: 12px;
+    color: #1a73e8;
+}
+
+.cf-popular-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cf-issue-card {
+    background: #fff;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #eef0f2;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cf-issue-card:hover {
+    background: #f6f9fe;
+    border-color: #d2e3fc;
+}
+
+.cf-issue-category {
+    font-size: 11px;
+    color: #1a73e8;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 4px;
+}
+
+.cf-issue-desc {
+    font-size: 13px;
+    color: #1a1a1a;
+    line-height: 1.4;
+}
+
+/* Архів */
+.cf-archive-container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 30px;
+}
+
+.cf-archive-container h2 {
+    margin-bottom: 16px;
+}
+
+.cf-archive-filters {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+
+.cf-archive-filter-btn {
+    padding: 6px 18px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 20px;
+    background: #fff;
+    color: #5f6368;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cf-archive-filter-btn:hover {
+    border-color: #1a73e8;
+    color: #1a73e8;
+    background: #e8f0fe;
+}
+
+.cf-archive-filter-btn.active {
+    background: #1a73e8;
+    color: #fff;
+    border-color: #1a73e8;
+}
+
+.cf-archive-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cf-archive-card {
+    background: #fff;
+    padding: 16px;
+    border-radius: 10px;
+    border-left: 4px solid #34a853;
+    cursor: pointer;
+    transition: all 0.2s;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.cf-archive-card:hover {
+    background: #f6f9fe;
+}
+
+.cf-archive-card strong {
+    display: block;
+    margin-bottom: 4px;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.cf-archive-card small {
+    display: block;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    line-height: 1.4;
+}
+
+.cf-btn-primary {
+    background: #1a73e8;
+    color: #fff;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 20px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cf-btn-primary:hover {
+    background: #1557b0;
+}
+
+.cf-btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.cf-btn-geo {
+    background: #fff;
+    color: #1a73e8;
+    border: 1.5px solid #1a73e8;
+    padding: 8px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.cf-btn-geo:hover {
+    background: #e8f0fe;
+}
+
+/* Форма */
+.cf-report-container {
+    max-width: 720px;
+    margin: 40px auto;
+    padding: 40px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    overflow-y: auto;
+}
+
+.cf-report-container h2 {
+    font-size: 28px;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.cf-report-subtitle {
+    color: #5f6368;
+    font-size: 14px;
+    margin-bottom: 32px;
+}
+
+.cf-report-form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.cf-form-group label {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 8px;
+    color: #202124;
+}
+
+.cf-form-group input[type="text"],
+.cf-form-group textarea,
+.cf-address-input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    transition: border-color 0.2s;
+    box-sizing: border-box;
+}
+
+.cf-form-group textarea {
+    resize: vertical;
+}
+
+.cf-form-group input:focus,
+.cf-form-group textarea:focus {
+    outline: none;
+    border-color: #1a73e8;
+}
+
+.cf-photos-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.cf-photo-add {
+    width: 80px;
+    height: 80px;
+    border: 1.5px dashed #d0d0d0;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 28px;
+    color: #1a73e8;
+    transition: border-color 0.2s;
+}
+
+.cf-photo-add:hover {
+    border-color: #1a73e8;
+}
+
+.cf-photo-thumb-wrapper {
+    position: relative;
+    width: 80px;
+    height: 80px;
+    animation: photoAppear 0.3s ease backwards;
+}
+
+.cf-photo-thumb {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color 0.2s;
+}
+
+.cf-photo-thumb.selected {
+    border-color: #1a73e8;
+}
+
+.cf-photo-remove {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    line-height: 1;
+    cursor: pointer;
+    color: #ff4444;
+    font-weight: bold;
+    border: none;
+    transition: transform 0.1s;
+}
+
+.cf-photo-remove:hover {
+    transform: scale(1.2);
+    background: #ff4444;
+    color: #fff;
+}
+
+.cf-classification-result {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+.cf-result-badge {
+    background: #e8f0fe;
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #1a73e8;
+}
+
+.cf-result-confidence {
+    font-size: 11px;
+    color: #5f6368;
+}
+
+.cf-categories-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.cf-chip {
+    padding: 5px 14px;
+    border-radius: 16px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1.5px solid #e0e0e0;
+    background: #fff;
+    color: #5f6368;
+    user-select: none;
+}
+
+.cf-chip:hover {
+    border-color: #1a73e8;
+}
+
+.cf-chip.selected {
+    background: #1a73e8;
+    color: #fff;
+    border-color: #1a73e8;
+}
+
+.cf-picker-map {
+    width: 100%;
+    height: 180px;
+    border-radius: 8px;
+    border: 1.5px solid #e0e0e0;
+    margin-top: 8px;
+}
+
+.cf-address-input {
+    margin-top: 8px;
+}
+
+.cf-success {
+    text-align: center;
+    padding: 30px 0;
+}
+
+.cf-success-card {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 14px;
+}
+
+.cf-success-icon {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 12px;
+    color: #34a853;
+}
+
+.cf-success-card button {
+    margin-top: 16px;
+}
+
+/* Детальна сторінка */
+.cf-detail-container {
+    max-width: 640px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+
+.cf-detail-container h2 {
+    font-size: 22px;
+    margin-bottom: 8px;
+    display: inline-block;
+}
+
+.cf-detail-status {
+    display: inline-block;
+    padding: 4px 14px;
+    border-radius: 14px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 12px;
+    vertical-align: middle;
+}
+
+.cf-detail-status.pending { background: #fef7e0; color: #e37400; }
+.cf-detail-status.in_progress { background: #e8f0fe; color: #1a73e8; }
+.cf-detail-status.resolved { background: #e6f4ea; color: #34a853; }
+
+.cf-detail-photos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0;
+}
+
+.cf-detail-photo {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.cf-detail-photo:hover { transform: scale(1.05); }
+
+.cf-detail-section {
+    margin-bottom: 16px;
+}
+
+.cf-detail-label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #5f6368;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 4px;
+}
+
+.cf-detail-text {
+    font-size: 15px;
+    line-height: 1.5;
+    color: #1a1a1a;
+    overflow-wrap: break-word;
+}
+
+.cf-detail-map {
+    width: 100%;
+    height: 250px;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    margin-top: 8px;
+    z-index: 1;
+}
+
+.cf-about-container {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 30px;
+    background: #fff;
+    border-radius: 14px;
+    line-height: 1.6;
+}
+
+.cf-about-container h2 { font-size: 24px; color: #1a73e8; margin-bottom: 16px; }
+.cf-about-container h3 { font-size: 18px; color: #333; margin-bottom: 12px; }
+.cf-about-container p { font-size: 14px; color: #444; margin-bottom: 12px; }
+
+.cf-footer {
+    text-align: center;
+    padding: 16px;
+    color: #5f6368;
+    font-size: 12px;
+    border-top: 1px solid #e0e0e0;
+    flex-shrink: 0;
+}
+
+/* Попап на карті */
+.cf-marker-popup {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.4;
+    max-width: 210px;
+}
+
+.cf-popup-title {
+    font-weight: 700;
+    font-size: 13px;
+    color: #1a1a1a;
+    margin-bottom: 3px;
+}
+
+.cf-popup-status {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 10px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.cf-popup-status.pending { background: #fef7e0; color: #e37400; }
+.cf-popup-status.in_progress { background: #e8f0fe; color: #1a73e8; }
+.cf-popup-status.resolved { background: #e6f4ea; color: #34a853; }
+
+.cf-popup-photo {
+    width: 100%;
+    max-height: 90px;
+    object-fit: cover;
+    border-radius: 6px;
+    margin-bottom: 4px;
+}
+
+.cf-popup-desc {
+    font-size: 12px;
+    color: #333;
+    margin-bottom: 3px;
+    overflow-wrap: break-word;
+}
+
+.cf-popup-address {
+    font-size: 11px;
+    color: #5f6368;
+    margin-bottom: 5px;
+    overflow-wrap: break-word;
+}
+
+.cf-popup-btn {
+    display: inline-block;
+    margin-top: 3px;
+    padding: 4px 12px;
+    background: #1a73e8;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.cf-popup-btn:hover { background: #1557b0; }
+
+/* Кластери */
+.marker-cluster-small { background-color: rgba(26,115,232,0.2); }
+.marker-cluster-small div { background-color: rgba(26,115,232,0.6); }
+.marker-cluster-medium { background-color: rgba(26,115,232,0.2); }
+.marker-cluster-medium div { background-color: rgba(26,115,232,0.6); }
+.marker-cluster-large { background-color: rgba(26,115,232,0.2); }
+.marker-cluster-large div { background-color: rgba(26,115,232,0.6); }
+
+/* Лайтбокс */
+.cf-lightbox {
+    display: flex;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.92);
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+.cf-lightbox.active { opacity: 1; pointer-events: auto; }
+.cf-lightbox img { max-width: 90%; max-height: 90%; border-radius: 12px; }
+.cf-lightbox-close { position: absolute; top: 24px; right: 36px; color: #fff; font-size: 40px; cursor: pointer; }
+
+.leaflet-popup-content-wrapper { box-shadow: none; border-radius: 6px; }
+.leaflet-popup-content { margin: 10px 12px; }

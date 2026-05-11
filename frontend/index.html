@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Fix – Моніторинг міської інфраструктури</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="cf-lightbox" id="cfLightbox">
+        <span class="cf-lightbox-close">&times;</span>
+        <img src="" alt="Фото проблеми" id="cfLightboxImg">
+    </div>
+
+    <nav class="cf-nav">
+        <a href="#" class="cf-nav-brand" id="cfLogo">City Fix</a>
+        <div class="cf-nav-links">
+            <a href="#" class="cf-nav-link active" data-page="home">Головна</a>
+            <a href="#" class="cf-nav-link" data-page="report">Подати скаргу</a>
+            <a href="#" class="cf-nav-link" data-page="archive">Архів</a>
+            <a href="#" class="cf-nav-link" data-page="about">Про нас</a>
+        </div>
+    </nav>
+
+    <!-- Головна -->
+    <div id="page-home" class="cf-page active">
+        <div class="cf-stats-panel">
+            <div class="cf-stat-card">
+                <span class="cf-stat-value" id="cfReportsLastWeek">0</span>
+                <span class="cf-stat-label">Скарг за тиждень</span>
+            </div>
+            <div class="cf-stat-card">
+                <span class="cf-stat-value" id="cfResolvedLastMonth">0</span>
+                <span class="cf-stat-label">Вирішено за місяць</span>
+            </div>
+            <div class="cf-stat-card">
+                <span class="cf-stat-value" id="cfTotalReports">0</span>
+                <span class="cf-stat-label">Всього звернень</span>
+            </div>
+        </div>
+        <div class="cf-main-content">
+            <div id="cfMap"></div>
+            <div class="cf-sidebar">
+                <h3>Актуальні проблеми</h3>
+                <div id="cfPopularList" class="cf-popular-list"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подати скаргу -->
+    <div id="page-report" class="cf-page">
+        <div class="cf-report-container">
+            <h2>Нове звернення</h2>
+            <p class="cf-report-subtitle">Завантажте фото — Модель визначить категорію автоматично</p>
+            <form id="cfReportForm" class="cf-report-form">
+                <div class="cf-form-group">
+                    <label>Фотографії (не більше 5)</label>
+                    <div class="cf-photos-grid" id="cfPhotosGrid">
+                        <div class="cf-photo-add" id="cfPhotoAdd">
+                            <input type="file" id="cfPhotoInput" accept="image/*" multiple hidden>
+                            <span>+</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="cf-form-group" id="cfStep2" style="display:none;">
+                    <label>Модель визначила категорію</label>
+                    <div class="cf-classification-result">
+                        <span class="cf-result-badge" id="cfResultCategory">Аналізую...</span>
+                        <span class="cf-result-confidence" id="cfResultConfidence"></span>
+                    </div>
+                    <div class="cf-categories-chips" id="cfCategoriesChips"></div>
+                    <input type="hidden" id="cfCategoryIds" name="category_ids" value="">
+                </div>
+                <div class="cf-form-group">
+                    <label>Місцезнаходження</label>
+                    <button type="button" id="cfDetectBtn" class="cf-btn-geo">Визначити моє місцезнаходження</button>
+                    <input type="text" id="cfAddress" name="address" placeholder="Або введіть адресу вручну" class="cf-address-input">
+                    <div id="cfPickerMap" class="cf-picker-map"></div>
+                    <input type="hidden" id="cfLatitude" name="latitude">
+                    <input type="hidden" id="cfLongitude" name="longitude">
+                </div>
+                <div class="cf-form-group">
+                    <label for="cfDescription">Опис проблеми</label>
+                    <textarea id="cfDescription" name="description" rows="4" placeholder="Опишіть проблему..." required></textarea>
+                </div>
+                <button type="submit" class="cf-btn-primary" id="cfSubmitBtn" disabled>Надіслати скаргу</button>
+            </form>
+            <div id="cfSuccess" class="cf-success" style="display:none;">
+                <div class="cf-success-card">
+                    <span class="cf-success-icon">✓</span>
+                    <h3>Скаргу прийнято</h3>
+                    <p>Статус: На розгляді</p>
+                    <button class="cf-btn-primary" onclick="location.reload()">Головне меню</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Детально -->
+    <div id="page-detail" class="cf-page">
+        <div class="cf-detail-container" id="cfDetailContent"></div>
+    </div>
+
+    <!-- Архів скарг -->
+    <div id="page-archive" class="cf-page">
+        <div class="cf-archive-container">
+            <h2>Архів скарг</h2>
+            <div class="cf-archive-filters">
+                <button class="cf-archive-filter-btn active" data-filter="all">Всі</button>
+                <button class="cf-archive-filter-btn" data-filter="resolved">Вирішені</button>
+                <button class="cf-archive-filter-btn" data-filter="pending">На розгляді</button>
+            </div>
+            <div id="cfArchiveList" class="cf-archive-list"></div>
+        </div>
+    </div>
+
+    <!-- Про нас -->
+    <div id="page-about" class="cf-page">
+        <div class="cf-about-container">
+            <h2>Про проект City Fix</h2>
+            <p><strong>City Fix</strong> — це веб-застосунок для моніторингу стану міської інфраструктури з модулем класифікації зображень на основі штучного інтелекту.</p>
+            <p>Мета проекту — створити зручний інструмент для повідомлень про проблеми міста.</p>
+            <p>Система автоматично визначає категорію за фото через нейронну мережу MobileNetV2.</p>
+            <hr style="margin: 24px 0; border: 0; border-top: 1px solid #e0e0e0;">
+            <h3>Про автора</h3>
+            <p><strong>Черняхівський Володимир</strong></p>
+            <p>Студент 4 курсу, група І-23</p>
+            <p>Дипломний проект виконано в рамках бакалаврської програми.</p>
+        </div>
+    </div>
+
+    <footer class="cf-footer"><p>© 2026 City Fix</p></footer>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script src="js/index.js"></script>
+</body>
+</html>
