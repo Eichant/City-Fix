@@ -1,0 +1,1 @@
+{"class_names": ["garbage", "graffiti", "illegal_parking", "road_damage"], "mapping": {"garbage": "Сміття", "graffiti": "Вандалізм", "graffitti": "Вандалізм", "illegal_parking": "Незаконне паркування", "road_damage": "Дорожні проблеми"}}
